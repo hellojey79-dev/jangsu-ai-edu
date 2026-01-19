@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장수군청 산림과 | 생성형 AI 실무 혁신 교육</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Chosen Palette: Modern Forestry -->
+    <!-- Primary: Emerald/Forest Green (Nature, Trust) -->
+    <!-- Secondary: Slate/Warm Gray (Professionalism) -->
+    <!-- Accent: Amber/Earth (Growth, Highlights) -->
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'sans-serif'],
+                    },
+                    colors: {
+                        forest: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        earth: {
+                            500: '#d97706', // Amber 600
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Chart Container Styling as per requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+
+    <!-- Application Structure Plan:
+         1. Header: Branding and core principle.
+         2. Hero/Dashboard: Overview of the 4-hour curriculum and "Workload Shift" visualization.
+         3. Main Content Area (Dynamic):
+            - Detailed interactive modules for each of the 4 Sessions.
+            - Session 1: Prompt Logic Builder.
+            - Session 2: Before/After Text Transformer.
+            - Session 3: Comparison Table Visualizer.
+            - Session 4: Litigation Timeline Builder.
+         4. Toolbox: Reference for recommended tools.
+         5. Footer.
+    -->
+    
+    <!-- Visualization & Content Choices:
+         - Workload Shift Chart: Bar chart to visually demonstrate the efficiency gain (Drafting time down, Judgment time constant). Goal: Inform/Motivate.
+         - Interactive Prompt Builder: Inputs -> Output. Goal: Inform/Teach the formula.
+         - Text Comparison: Simple JS toggle. Goal: Compare raw vs. refined text.
+         - Timeline: CSS/HTML structure. Goal: Organize complex litigation data.
+         - Confirming NO SVG/Mermaid. All icons are FontAwesome, charts are Chart.js.
+    -->
+    
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-forest-100 selection:text-forest-900">
+
+    <!-- Header -->
+    <header class="bg-forest-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-tree text-earth-500 text-2xl"></i>
+                <div>
+                    <h1 class="text-xl font-bold leading-tight">장수군청 산림과</h1>
+                    <p class="text-xs text-forest-100 opacity-90">생성형 AI 실무 혁신 교육과정</p>
+                </div>
+            </div>
+            <div class="hidden md:block text-right">
+                <p class="text-sm font-medium text-earth-500">"판단은 사람이, 초안은 AI가"</p>
+                <p class="text-xs text-forest-200">The Decision Maker & The Assistant</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 space-y-12">
+
+        <!-- Section 1: Course Overview & Motivation -->
+        <section id="overview" class="grid md:grid-cols-2 gap-8 items-center fade-in">
+            <div class="space-y-6">
+                <div class="inline-flex items-center space-x-2 bg-forest-100 text-forest-800 px-3 py-1 rounded-full text-sm font-semibold">
+                    <span class="w-2 h-2 bg-forest-600 rounded-full animate-pulse"></span>
+                    <span>4시간 완성 커리큘럼</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
+                    산림 행정의 미래,<br>
+                    <span class="text-forest-700">AI 비서</span>와 함께 시작하세요.
+                </h2>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    반복되는 보고서 작성, 감정적인 민원 대응, 복잡한 법령 검토...<br>
+                    이제 단순 작업은 AI에게 맡기고, 공무원 여러분은 <strong>'최종 판단'</strong>과 <strong>'현장'</strong>에 집중하십시오.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                        <i class="fa-solid fa-shield-halved text-forest-600 text-xl mb-2"></i>
+                        <h3 class="font-bold text-slate-800">보안 최우선</h3>
+                        <p class="text-sm text-slate-500">개인정보·민감정보 입력 금지 원칙 준수</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                        <i class="fa-solid fa-scale-balanced text-forest-600 text-xl mb-2"></i>
+                        <h3 class="font-bold text-slate-800">책임 행정</h3>
+                        <p class="text-sm text-slate-500">AI 결과물에 대한 최종 검토 및 책임</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart: Workload Shift -->
+            <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 mb-4 text-center">AI 도입 전후 업무 시간 변화 (예상)</h3>
+                <div class="chart-container">
+                    <canvas id="workloadChart"></canvas>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-2">단순 초안 작성 시간이 획기적으로 줄어듭니다.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Interactive Curriculum Modules (Tabs) -->
+        <section id="curriculum" class="scroll-mt-20">
+            <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                <i class="fa-solid fa-graduation-cap text-forest-600 mr-2"></i>
+                실무 교육과정 (4차시)
+            </h3>
+            
+            <!-- Tab Navigation -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-8">
+                <button onclick="switchTab(1)" id="tab-1" class="tab-btn active-tab p-4 rounded-lg text-center transition-all duration-300 border-2 border-forest-600 bg-forest-50 text-forest-900 shadow-sm">
+                    <div class="text-xs font-bold uppercase tracking-wider mb-1">1차시</div>
+                    <div class="font-bold text-lg"><i class="fa-solid fa-robot mb-1 block md:inline md:mr-1"></i> 기초 & 보안</div>
+                </button>
+                <button onclick="switchTab(2)" id="tab-2" class="tab-btn p-4 rounded-lg text-center transition-all duration-300 border-2 border-transparent bg-white text-slate-500 hover:bg-slate-50">
+                    <div class="text-xs font-bold uppercase tracking-wider mb-1">2차시</div>
+                    <div class="font-bold text-lg"><i class="fa-solid fa-file-signature mb-1 block md:inline md:mr-1"></i> 업무 자동화</div>
+                </button>
+                <button onclick="switchTab(3)" id="tab-3" class="tab-btn p-4 rounded-lg text-center transition-all duration-300 border-2 border-transparent bg-white text-slate-500 hover:bg-slate-50">
+                    <div class="text-xs font-bold uppercase tracking-wider mb-1">3차시</div>
+                    <div class="font-bold text-lg"><i class="fa-solid fa-gavel mb-1 block md:inline md:mr-1"></i> 법령 분석</div>
+                </button>
+                <button onclick="switchTab(4)" id="tab-4" class="tab-btn p-4 rounded-lg text-center transition-all duration-300 border-2 border-transparent bg-white text-slate-500 hover:bg-slate-50">
+                    <div class="text-xs font-bold uppercase tracking-wider mb-1">4차시</div>
+                    <div class="font-bold text-lg"><i class="fa-solid fa-scale-unbalanced-flip mb-1 block md:inline md:mr-1"></i> 소송 대응</div>
+                </button>
+            </div>
+
+            <!-- Dynamic Content Container -->
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 min-h-[500px] relative overflow-hidden">
+                
+                <!-- Session 1 Content -->
+                <div id="content-1" class="session-content p-6 md:p-8 fade-in">
+                    <div class="mb-6 border-b border-slate-100 pb-4">
+                        <h4 class="text-2xl font-bold text-forest-800">1차시: 기초 다지기 & 프롬프트 공식</h4>
+                        <p class="text-slate-600 mt-2">AI는 '개떡'같이 말하면 '개떡'같이 알아듣습니다. 원하는 결과물을 얻기 위한 <strong class="text-earth-500">3원칙 공식</strong>을 실습합니다.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Left: Logic -->
+                        <div class="space-y-6">
+                            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                                <h5 class="font-bold text-lg mb-4 text-slate-800"><i class="fa-solid fa-flask text-forest-600 mr-2"></i>프롬프트 작성 공식</h5>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-700 mb-1">1. WHO (역할 부여)</label>
+                                        <select id="p-who" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-forest-500 outline-none text-sm" onchange="updatePrompt()">
+                                            <option value="당신은 10년 차 베테랑 산림 행정 전문가입니다.">10년 차 산림 전문가</option>
+                                            <option value="당신은 친절하고 공감 능력이 뛰어난 민원 담당 공무원입니다.">친절한 민원 담당자</option>
+                                            <option value="당신은 논리적이고 냉철한 법무 팀장입니다.">냉철한 법무 팀장</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-700 mb-1">2. WHAT (작업 내용)</label>
+                                        <select id="p-what" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-forest-500 outline-none text-sm" onchange="updatePrompt()">
+                                            <option value="장수군 사과 축제와 연계한 산림 치유 프로그램을 기획해 주세요.">사과 축제 연계 프로그램 기획</option>
+                                            <option value="팔공산 등산로 데크 파손 현장 점검 보고서를 작성해 주세요.">현장 점검 보고서 작성</option>
+                                            <option value="산지전용허가 불허 처분에 대한 민원 답변 메일을 작성해 주세요.">민원 답변 메일 작성</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-700 mb-1">3. HOW (형식 및 톤)</label>
+                                        <select id="p-how" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-forest-500 outline-none text-sm" onchange="updatePrompt()">
+                                            <option value="개조식으로 핵심만 간결하게 작성하고, 전문적인 용어를 사용해 주세요.">보고서용 (개조식/전문적)</option>
+                                            <option value="초등학생도 이해할 수 있도록 쉽고 친절한 말투로 작성해 주세요.">홍보용 (친절/쉬운말)</option>
+                                            <option value="감정을 배제하고 법적 근거를 중심으로 논리적으로 작성해 주세요.">소송 대응용 (논리적/건조)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Preview -->
+                        <div class="bg-slate-800 text-slate-200 p-6 rounded-xl shadow-inner flex flex-col">
+                            <div class="flex items-center justify-between mb-4 border-b border-slate-600 pb-2">
+                                <span class="text-xs font-mono text-earth-500">AI Input Preview</span>
+                                <i class="fa-solid fa-terminal text-slate-400"></i>
+                            </div>
+                            <div id="prompt-output" class="font-mono text-sm leading-relaxed whitespace-pre-wrap flex-grow">
+                                <!-- JS will populate this -->
+                            </div>
+                            <button onclick="copyPrompt()" class="mt-4 bg-forest-600 hover:bg-forest-500 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors w-full">
+                                <i class="fa-regular fa-copy mr-2"></i>프롬프트 복사하기
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+                        <h5 class="text-red-800 font-bold flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2"></i>보안 절대 원칙</h5>
+                        <ul class="list-disc list-inside text-sm text-red-700 mt-2 space-y-1">
+                            <li><strong>익명화:</strong> 김철수 → A씨, 장수읍 → OO읍 (개인정보 삭제)</li>
+                            <li><strong>비공개 자료:</strong> 대외비 문서는 요약하거나 가상 데이터로 변환</li>
+                            <li><strong>더블 체크:</strong> AI 생성물은 반드시 담당자가 검수 후 사용</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Session 2 Content -->
+                <div id="content-2" class="session-content p-6 md:p-8 hidden fade-in">
+                    <div class="mb-6 border-b border-slate-100 pb-4">
+                        <h4 class="text-2xl font-bold text-forest-800">2차시: 행정 업무 자동화</h4>
+                        <p class="text-slate-600 mt-2">거친 현장의 기록을 깔끔한 공문서로, 감정적인 민원을 이성적인 답변으로 변환합니다.</p>
+                    </div>
+
+                    <!-- Case 1: Field Notes -->
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="badge bg-yellow-200 text-yellow-800 px-2 py-1 rounded text-xs font-bold">Input: 거친 현장 메모</span>
+                                <i class="fa-solid fa-pen-nib text-yellow-600"></i>
+                            </div>
+                            <p class="font-handwriting text-slate-700 italic leading-relaxed text-sm">
+                                "북쪽 경사면에 소나무 3그루 색깔 이상함. 붉게 변했어. 재선충 의심됨. 거기 경사가 너무 급해서 올라가기 힘듦. 장비 좀 보내줘. 사진 3장 찍음."
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-center md:hidden">
+                            <i class="fa-solid fa-arrow-down text-slate-300"></i>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative group">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="badge bg-forest-100 text-forest-800 px-2 py-1 rounded text-xs font-bold">Output: AI 생성 보고서 초안</span>
+                                <i class="fa-solid fa-file-lines text-forest-600"></i>
+                            </div>
+                            <div class="text-sm text-slate-700 space-y-2">
+                                <p><strong>1. 현황:</strong> 북측 경사면 소나무 3본 고사 진행(재선충병 의심 증상, 엽색 변색) 식별.</p>
+                                <p><strong>2. 애로사항:</strong> 급경사지로 인한 접근 제한 및 정밀 예찰 곤란.</p>
+                                <p><strong>3. 조치계획:</strong> 정밀 검사를 위한 등반 장비 및 추가 인력 지원 요청.</p>
+                            </div>
+                            <div class="absolute inset-0 bg-forest-50/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px] rounded-xl pointer-events-none">
+                                <span class="bg-white px-3 py-1 rounded-full shadow text-forest-700 text-sm font-bold">자동 변환 완료</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case 2: Civil Complaint -->
+                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                        <h5 class="font-bold text-slate-800 mb-4 flex items-center">
+                            <i class="fa-solid fa-heart-crack text-red-400 mr-2"></i>감정 노동 방어막 (Buffer Zone)
+                        </h5>
+                        <div class="flex flex-col md:flex-row gap-4 items-start">
+                            <div class="w-full md:w-1/2">
+                                <label class="text-xs font-bold text-slate-500 uppercase">민원인 주장 (감정적)</label>
+                                <div class="bg-white p-4 rounded-lg border border-red-100 text-red-800 text-sm mt-1">
+                                    "아니, 내 산에 내가 창고 짓겠다는데 군청에서 왜 안 된다는 거야! 무슨 법이 이래? 당장 허가 안 해주면 군수실 찾아간다! 다 엎어버릴 거야!"
+                                </div>
+                            </div>
+                            <div class="hidden md:flex flex-col justify-center h-full pt-8">
+                                <i class="fa-solid fa-arrow-right text-slate-300"></i>
+                            </div>
+                            <div class="w-full md:w-1/2">
+                                <label class="text-xs font-bold text-slate-500 uppercase">AI 답변 (이성적/팩트)</label>
+                                <div class="bg-white p-4 rounded-lg border border-forest-100 text-slate-700 text-sm mt-1">
+                                    <p class="mb-2"><strong class="text-forest-600">1. 공감:</strong> 선생님, 본인 소유의 임야를 활용하지 못해 답답하신 마음 충분히 이해합니다.</p>
+                                    <p class="mb-2"><strong class="text-forest-600">2. 근거:</strong> 다만, 해당 필지는 [산지관리법]상 평균 경사도가 25도를 초과하여 법적으로 건축 허가가 불가능한 지역입니다.</p>
+                                    <p><strong class="text-forest-600">3. 대안:</strong> 인접한 평지 구역을 활용하시거나, 산림 경영 계획 인가를 통한 다른 활용 방안을 안내해 드리겠습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 3 Content -->
+                <div id="content-3" class="session-content p-6 md:p-8 hidden fade-in">
+                    <div class="mb-6 border-b border-slate-100 pb-4">
+                        <h4 class="text-2xl font-bold text-forest-800">3차시: 법령·규정 비교 분석</h4>
+                        <p class="text-slate-600 mt-2">복잡한 규정의 변경 사항을 한눈에 볼 수 있는 <strong>비교표(Table)</strong>로 시각화합니다.</p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-3 gap-6">
+                        <!-- Input Data -->
+                        <div class="lg:col-span-1 space-y-4">
+                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                                <h6 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">규정 A (구 지침)</h6>
+                                <p class="text-xs text-slate-500 leading-relaxed">
+                                    "지원 대상은 5ha 이상 산림 소유자로 한정하며, 사업 시행 30일 전까지 신청해야 한다. 제출 서류는 사업계획서와 소유권 증명이다."
+                                </p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                                <h6 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">규정 B (신 지침)</h6>
+                                <p class="text-xs text-slate-500 leading-relaxed">
+                                    "지원 대상을 3ha 이상으로 완화한다. 단, 신속 처리를 위해 사업 시행 15일 전까지 신청해야 하며, 환경영향평가 약식 서류를 추가로 제출해야 한다."
+                                </p>
+                            </div>
+                            <div class="text-center py-4">
+                                <i class="fa-solid fa-arrow-down text-forest-300 text-2xl animate-bounce"></i>
+                            </div>
+                        </div>
+
+                        <!-- Visualization -->
+                        <div class="lg:col-span-2">
+                            <div class="bg-slate-50 rounded-xl p-1 border border-slate-200">
+                                <table class="w-full text-sm text-left">
+                                    <thead class="bg-forest-800 text-white">
+                                        <tr>
+                                            <th class="p-3 rounded-tl-lg">항목</th>
+                                            <th class="p-3">구 규정</th>
+                                            <th class="p-3">신 규정</th>
+                                            <th class="p-3 rounded-tr-lg">비고 (주의사항)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200 bg-white">
+                                        <tr>
+                                            <td class="p-3 font-semibold text-slate-700">지원 면적</td>
+                                            <td class="p-3 text-slate-500">5ha 이상</td>
+                                            <td class="p-3 text-forest-700 font-bold bg-forest-50">3ha 이상 (확대)</td>
+                                            <td class="p-3 text-xs text-slate-400">대상자 증가 예상</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-3 font-semibold text-slate-700">신청 기한</td>
+                                            <td class="p-3 text-slate-500">30일 전</td>
+                                            <td class="p-3 text-red-600 font-bold bg-red-50">15일 전 (단축)</td>
+                                            <td class="p-3 text-xs text-slate-400">홍보 필수</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-3 font-semibold text-slate-700">제출 서류</td>
+                                            <td class="p-3 text-slate-500">기본 2종</td>
+                                            <td class="p-3 text-slate-700">기본 + <span class="text-blue-600">환경평가 약식</span></td>
+                                            <td class="p-3 text-xs text-slate-400">누락 주의 안내</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-4 p-4 bg-blue-50 rounded-lg text-blue-800 text-sm flex items-start">
+                                <i class="fa-solid fa-lightbulb mt-1 mr-3 text-blue-500"></i>
+                                <div>
+                                    <strong>Perplexity/Gemini 활용 팁:</strong><br>
+                                    "최신 산림청 조례와 우리 군 조례를 비교해서 표로 만들어 줘"라고 요청하면, 위와 같이 출처가 포함된 비교표를 1분 만에 얻을 수 있습니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 4 Content -->
+                <div id="content-4" class="session-content p-6 md:p-8 hidden fade-in">
+                    <div class="mb-6 border-b border-slate-100 pb-4">
+                        <h4 class="text-2xl font-bold text-forest-800">4차시: 소송·분쟁 대응 심화</h4>
+                        <p class="text-slate-600 mt-2">방대한 소송 자료를 <strong>시간 순서(Timeline)</strong>로 꿰어 맞추고, <strong>쟁점(Issue)</strong>을 방어합니다.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Timeline Visualization -->
+                        <div>
+                            <h5 class="font-bold text-slate-800 mb-4 text-center">사실 관계 타임라인 (Chronological Facts)</h5>
+                            <div class="relative pl-8 border-l-2 border-slate-200 space-y-8">
+                                <!-- Item 1 -->
+                                <div class="relative">
+                                    <span class="absolute -left-[41px] bg-slate-200 h-6 w-6 rounded-full flex items-center justify-center text-xs border-2 border-white">1</span>
+                                    <div class="bg-white p-3 rounded-lg border border-slate-200 shadow-sm card-hover">
+                                        <div class="text-xs text-slate-400 font-bold mb-1">2023.01.15 (신청)</div>
+                                        <div class="text-sm font-bold text-slate-800">산지전용허가 신청</div>
+                                        <p class="text-xs text-slate-500">원고(김OO) -> 장수군청</p>
+                                    </div>
+                                </div>
+                                <!-- Item 2 -->
+                                <div class="relative">
+                                    <span class="absolute -left-[41px] bg-blue-100 h-6 w-6 rounded-full flex items-center justify-center text-xs border-2 border-white text-blue-600">2</span>
+                                    <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 shadow-sm card-hover">
+                                        <div class="text-xs text-blue-400 font-bold mb-1">2023.02.10 (보완)</div>
+                                        <div class="text-sm font-bold text-blue-800">보완 요청 공문 발송</div>
+                                        <p class="text-xs text-blue-600">내용: 경사도 조사서 미비</p>
+                                    </div>
+                                </div>
+                                <!-- Item 3 -->
+                                <div class="relative">
+                                    <span class="absolute -left-[41px] bg-red-100 h-6 w-6 rounded-full flex items-center justify-center text-xs border-2 border-white text-red-600">3</span>
+                                    <div class="bg-red-50 p-3 rounded-lg border border-red-100 shadow-sm card-hover">
+                                        <div class="text-xs text-red-400 font-bold mb-1">2023.03.20 (처분)</div>
+                                        <div class="text-sm font-bold text-red-800">반려 처분 통지</div>
+                                        <p class="text-xs text-red-600">사유: 기준 경사도 25도 초과</p>
+                                    </div>
+                                </div>
+                                <!-- Item 4 -->
+                                <div class="relative">
+                                    <span class="absolute -left-[41px] bg-slate-800 h-6 w-6 rounded-full flex items-center justify-center text-xs border-2 border-white text-white">4</span>
+                                    <div class="bg-slate-800 p-3 rounded-lg border border-slate-700 shadow-sm card-hover">
+                                        <div class="text-xs text-slate-400 font-bold mb-1">2023.05.01 (소송)</div>
+                                        <div class="text-sm font-bold text-white">행정 소송 제기</div>
+                                        <p class="text-xs text-slate-400">주장: 재량권 일탈 남용</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Issue Matrix -->
+                        <div>
+                            <h5 class="font-bold text-slate-800 mb-4 text-center">쟁점 대응 매트릭스 (Issue Matrix)</h5>
+                            <div class="space-y-3">
+                                <div class="bg-white p-4 rounded-xl border-l-4 border-red-500 shadow-sm">
+                                    <h6 class="text-xs font-bold text-red-500 uppercase mb-1">원고 주장 (Attack)</h6>
+                                    <p class="text-sm text-slate-700 font-medium">"담당 공무원이 구두로 허가 가능하다고 했다. (신뢰보호 원칙 위반)"</p>
+                                </div>
+                                <div class="flex justify-center text-slate-300">
+                                    <i class="fa-solid fa-xmark text-xl"></i>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border-l-4 border-forest-500 shadow-sm">
+                                    <h6 class="text-xs font-bold text-forest-600 uppercase mb-1">행정청 반박 (Defense)</h6>
+                                    <p class="text-sm text-slate-700 font-medium">"공적인 견해 표명(공문 등)이 없었으므로 원칙 적용 대상이 아님. 상담 일지에 '검토 필요'라고만 기재됨."</p>
+                                    <div class="mt-2 text-xs bg-forest-50 text-forest-700 inline-block px-2 py-1 rounded">
+                                        <i class="fa-solid fa-paperclip mr-1"></i>증거: 2023.01.10 상담일지
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 p-4 bg-slate-100 rounded-lg text-center">
+                                <p class="text-sm font-bold text-slate-700 mb-2">NotebookLM 활용법</p>
+                                <p class="text-xs text-slate-500">소송 서류 PDF 20개를 한 번에 업로드하고,<br><strong>"이 사건의 쟁점과 우리 측 반박 논리를 표로 정리해 줘"</strong>라고 입력하세요.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Tool Box Section -->
+        <section id="toolbox" class="fade-in">
+            <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                <i class="fa-solid fa-toolbox text-forest-600 mr-2"></i>
+                추천 AI 도구함
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-forest-400 transition-colors">
+                    <div class="text-forest-600 text-2xl mb-2"><i class="fa-solid fa-message"></i></div>
+                    <h4 class="font-bold text-slate-800">ChatGPT (4o)</h4>
+                    <p class="text-xs text-slate-500 mt-1">보고서 초안, 요약, 엑셀 분석</p>
+                    <span class="mt-3 inline-block px-2 py-1 bg-forest-50 text-forest-700 text-[10px] font-bold rounded">만능 비서</span>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-forest-400 transition-colors">
+                    <div class="text-blue-600 text-2xl mb-2"><i class="fa-solid fa-magnifying-glass-location"></i></div>
+                    <h4 class="font-bold text-slate-800">Perplexity</h4>
+                    <p class="text-xs text-slate-500 mt-1">법령 검색, 출처(링크) 확인</p>
+                    <span class="mt-3 inline-block px-2 py-1 bg-blue-50 text-blue-700 text-[10px] font-bold rounded">할루시네이션 방지</span>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-forest-400 transition-colors">
+                    <div class="text-purple-600 text-2xl mb-2"><i class="fa-solid fa-book-open"></i></div>
+                    <h4 class="font-bold text-slate-800">NotebookLM</h4>
+                    <p class="text-xs text-slate-500 mt-1">소송 서류, 대량 PDF 분석</p>
+                    <span class="mt-3 inline-block px-2 py-1 bg-purple-50 text-purple-700 text-[10px] font-bold rounded">나만의 자료실</span>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-forest-400 transition-colors">
+                    <div class="text-earth-500 text-2xl mb-2"><i class="fa-solid fa-feather-pointed"></i></div>
+                    <h4 class="font-bold text-slate-800">Claude 3.5</h4>
+                    <p class="text-xs text-slate-500 mt-1">자연스러운 작문, 보도자료</p>
+                    <span class="mt-3 inline-block px-2 py-1 bg-orange-50 text-orange-700 text-[10px] font-bold rounded">글쓰기 특화</span>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <i class="fa-solid fa-tree text-forest-600 text-2xl mb-4"></i>
+            <p class="text-sm mb-2">장수군청 산림과 생성형 AI 실무 활용 교육</p>
+            <p class="text-xs opacity-70">"AI는 도구일 뿐, 책임과 판단은 공무원에게 있습니다."</p>
+            <div class="mt-6 flex justify-center space-x-4">
+                <span class="text-xs bg-slate-700 px-2 py-1 rounded">강사: 1인 운영</span>
+                <span class="text-xs bg-slate-700 px-2 py-1 rounded">대상: 20명</span>
+                <span class="text-xs bg-slate-700 px-2 py-1 rounded">시간: 4시간</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- 1. State Management ---
+        const state = {
+            activeTab: 1,
+            promptData: {
+                who: "당신은 10년 차 베테랑 산림 행정 전문가입니다.",
+                what: "장수군 사과 축제와 연계한 산림 치유 프로그램을 기획해 주세요.",
+                how: "개조식으로 핵심만 간결하게 작성하고, 전문적인 용어를 사용해 주세요."
+            }
+        };
+
+        // --- 2. Chart.js Implementation ---
+        document.addEventListener('DOMContentLoaded', function() {
+            initChart();
+            updatePrompt(); // Init prompt builder
+        });
+
+        function initChart() {
+            const ctx = document.getElementById('workloadChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['자료 조사', '초안 작성', '검토 및 수정', '최종 판단'],
+                    datasets: [
+                        {
+                            label: '도입 전 (분)',
+                            data: [60, 90, 30, 20],
+                            backgroundColor: '#94a3b8', // Slate 400
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'AI 도입 후 (분)',
+                            data: [10, 5, 40, 30], // More time for review/judgment
+                            backgroundColor: '#059669', // Forest 600
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '소요 시간 (분)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + '분';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- 3. Navigation Logic ---
+        function switchTab(tabIndex) {
+            // Update State
+            state.activeTab = tabIndex;
+
+            // Update UI: Buttons
+            document.querySelectorAll('.tab-btn').forEach((btn, index) => {
+                if (index + 1 === tabIndex) {
+                    btn.classList.add('active-tab', 'border-forest-600', 'bg-forest-50', 'text-forest-900', 'shadow-sm');
+                    btn.classList.remove('border-transparent', 'bg-white', 'text-slate-500');
+                } else {
+                    btn.classList.remove('active-tab', 'border-forest-600', 'bg-forest-50', 'text-forest-900', 'shadow-sm');
+                    btn.classList.add('border-transparent', 'bg-white', 'text-slate-500');
+                }
+            });
+
+            // Update UI: Content
+            document.querySelectorAll('.session-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`content-${tabIndex}`).classList.remove('hidden');
+        }
+
+        // --- 4. Session 1: Prompt Builder Logic ---
+        function updatePrompt() {
+            const who = document.getElementById('p-who').value;
+            const what = document.getElementById('p-what').value;
+            const how = document.getElementById('p-how').value;
+
+            const output = `${who}\n\n[요청 사항]\n${what}\n\n[출력 형식]\n${how}`;
+            
+            const outputEl = document.getElementById('prompt-output');
+            outputEl.textContent = output;
+            
+            // Simple highlight effect
+            outputEl.classList.remove('text-forest-300');
+            void outputEl.offsetWidth; // Trigger reflow
+            outputEl.classList.add('text-forest-300');
+            setTimeout(() => outputEl.classList.remove('text-forest-300'), 300);
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('prompt-output').textContent;
+            
+            // Fallback for clipboard API if needed, but execCommand is safer in iframes
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            alert("프롬프트가 복사되었습니다! 실습 창에 붙여넣으세요.");
+        }
+
+    </script>
+</body>
+</html>
